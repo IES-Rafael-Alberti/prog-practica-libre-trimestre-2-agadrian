@@ -5,6 +5,7 @@ interface EntradaDatos{
     fun pedirMarca(esEdicion: Boolean = false): String
     fun pedirModelo(esEdicion: Boolean = false): String
     fun pedirAnio(esEdicion: Boolean = false): Int
+    fun pedirKilometros(esEdicion: Boolean = false): Int
     fun pedirCaballos(esEdicion: Boolean = false): Int
     fun pedirPrecio(esEdicion: Boolean = false): Double
     fun pedirCilindrada(esEdicion: Boolean = false): Int
@@ -16,58 +17,88 @@ interface EntradaDatos{
 class ConsolaEntradaDatos : EntradaDatos{
     override fun pedirMarca(esEdicion: Boolean):String {
         var marca: String
+        val msg: String = if (!esEdicion) "Introduce la marca del vehiculo -> " else "Introduce nueva marca (Enter/vacio si no quieres modificarla) -> "
+
         do {
-            print("Introduce la marca del vehiculo -> ")
+            print(msg)
             marca = readln()
             if (esEdicion && marca.isEmpty()) return marca
-        } while (marca.isNotBlank())
+            if (marca.isBlank()) print("Error - No puede estar vacia. ")
+        } while (marca.isBlank())
         return marca
     }
 
+
     override fun pedirModelo(esEdicion: Boolean): String {
         var modelo: String
+        val msg: String = if (!esEdicion) "Introduce el modelo del vehiculo -> " else "Introduce nueva modelo (Enter/vacio si no quieres modificarlo) -> "
         do {
-            print("Introduce el modelo del vehiculo -> ")
+            print(msg)
             modelo = readln()
-        } while (modelo.isNotBlank())
+            if (esEdicion && modelo.isEmpty()) return modelo
+            if (modelo.isBlank()) print("Error - No puede estar vacio. ")
+        } while (modelo.isBlank())
         return modelo
     }
 
+
     override fun pedirAnio(esEdicion: Boolean): Int {
         var anio: Int
+        val msg: String = if (!esEdicion) "Introduce el año del vehiculo (1970-2024) -> " else "Introduce nuevo año (1970-2024)-(Enter/vacio si no quieres modificarlo) -> "
         do {
-            print("Introduce el año del vehiculo (1970-2024) -> ")
-            anio = readln().toIntOrNull() ?: 0
-            if (anio !in 1970..2024) println("Error - Año no valido. ")
+            print(msg)
+            anio = readln().toIntOrNull() ?: -1
+            if (esEdicion && anio == -1) return anio
+            if (anio !in 1970..2024) print("Error - Año no valido. ")
         } while (anio !in 1970..2024)
         return anio
     }
 
+    override fun pedirKilometros(esEdicion: Boolean): Int {
+        var kms: Int
+        val msg: String = if (!esEdicion) "Introduce kms del vehiculo (0- 1.000.000) -> " else "Introduce nuevos kms (0- 1.000.000)-(Enter/vacio si no quieres modificarlo) -> "
+        do {
+            print(msg)
+            kms = readln().toIntOrNull() ?: -1
+            if (esEdicion && kms == -1) return kms
+            if (kms !in 0..1000000) print("Error - Kms no validos. ")
+        } while (kms !in 0..1000000)
+        return kms
+    }
+
+
     override fun pedirCaballos(esEdicion: Boolean): Int {
         var caballos: Int
+        val msg: String = if (!esEdicion) "Introduce los caballos del vehiculo (80-600) -> " else "Introduce nuevos caballos (80-600)-(Enter/vacio si no quieres modificarlo) -> "
         do {
-            println("Introduce los caballos del vehiculo (entre 80 y 600) -> ")
-            caballos = readln().toIntOrNull() ?: 0
-            if (caballos !in 80..600) println("Error - Cvs no validos. ")
+            print(msg)
+            caballos = readln().toIntOrNull() ?: -1
+            if (esEdicion && caballos == -1) return caballos
+            if (caballos !in 80..600) print("Error - Cvs no validos. ")
         } while (caballos !in 80..600)
         return caballos
     }
 
+
     override fun pedirPrecio(esEdicion: Boolean): Double {
         var precio: Double
+        val msg: String = if (!esEdicion) "Introduce precio del vehiculo (5.000 - 400.000) -> " else "Introduce nuevo precio (5.000 - 400.000)-(Enter/vacio si no quieres modificarlo) -> "
         do {
-            println("Introduce el precio del vehiculo (5000 - 400000) -> ")
-            precio = readln().toDoubleOrNull() ?: 0.0
-            if (precio <= 5000.0 || precio > 400000f) println("Error - Precio no valido")
-        } while (precio <= 5000.0 || precio > 400000f)
+            print(msg)
+            precio = readln().toDoubleOrNull() ?: -1.0
+            if (esEdicion && precio == -1.0) return precio
+            if (precio < 5000.0 || precio > 400000f) println("Error - Precio no valido")
+        } while (precio < 5000.0 || precio > 400000f)
         return precio
     }
 
+
     override fun pedirCilindrada(esEdicion: Boolean): Int {
         var cilindrada: Int
+        val msg: String = if (!esEdicion) "Introduce la cilindrada: (300, 600, 1000) -> " else "Introduce nueva cilindrada (300, 600, 1000)-(Enter/vacio si no quieres modificarla) -> "
         do {
-            println("Introduce la cilindrada del vehiculo (300, 600, 1000) -> ")
-            cilindrada = readln().toIntOrNull() ?: 0
+            print(msg)
+            cilindrada = readln().toIntOrNull() ?: -1
         } while (!Cilindrada.entries.any { it.valor == cilindrada })
         return cilindrada
     }

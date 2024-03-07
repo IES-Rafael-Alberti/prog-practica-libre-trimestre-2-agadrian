@@ -6,14 +6,13 @@ class Motocicleta(
     modelo: String,
     anio: Int,
     kilometros: Int,
-    precio: Double,
     caballos: Int,
-    cilindrada: Int,
+    precio: Double,
+    private var cilindrada: Int,
 
 ) : Vehiculo(id, marca, modelo, anio, kilometros, caballos, precio){
 
-    var cilindrada = cilindrada
-        private set
+
 
     fun editarCilindrada(nuevaCilindrada: Int) {
         cilindrada = nuevaCilindrada
