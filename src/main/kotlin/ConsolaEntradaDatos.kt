@@ -11,9 +11,8 @@ interface EntradaDatos{
     fun pedirCilindrada(esEdicion: Boolean = false): Int
 }
 
-// TODO: Que si es para editar, al presionar enter en el campo deseado se mantenga el valor y no se modifique nada
 
-// TODO !!!!!!!! HACER EL MISMO IF QUE EN MARCA PARA COMPROBAR QUE INTRODUCE VACIO SI ES EDICION Y DEVOLVERLO. AÑADIR TAMBIEN EL MENSAJE DE QUE PRESIONE ENTER SI NO DESEA CAMBIAR NADA
+
 class ConsolaEntradaDatos : EntradaDatos{
     override fun pedirMarca(esEdicion: Boolean):String {
         var marca: String
@@ -32,6 +31,7 @@ class ConsolaEntradaDatos : EntradaDatos{
     override fun pedirModelo(esEdicion: Boolean): String {
         var modelo: String
         val msg: String = if (!esEdicion) "Introduce el modelo del vehiculo -> " else "Introduce nueva modelo (Enter/vacio si no quieres modificarlo) -> "
+
         do {
             print(msg)
             modelo = readln()
@@ -45,6 +45,7 @@ class ConsolaEntradaDatos : EntradaDatos{
     override fun pedirAnio(esEdicion: Boolean): Int {
         var anio: Int
         val msg: String = if (!esEdicion) "Introduce el año del vehiculo (1970-2024) -> " else "Introduce nuevo año (1970-2024)-(Enter/vacio si no quieres modificarlo) -> "
+
         do {
             print(msg)
             anio = readln().toIntOrNull() ?: -1
@@ -57,6 +58,7 @@ class ConsolaEntradaDatos : EntradaDatos{
     override fun pedirKilometros(esEdicion: Boolean): Int {
         var kms: Int
         val msg: String = if (!esEdicion) "Introduce kms del vehiculo (0- 1.000.000) -> " else "Introduce nuevos kms (0- 1.000.000)-(Enter/vacio si no quieres modificarlo) -> "
+
         do {
             print(msg)
             kms = readln().toIntOrNull() ?: -1
@@ -70,6 +72,7 @@ class ConsolaEntradaDatos : EntradaDatos{
     override fun pedirCaballos(esEdicion: Boolean): Int {
         var caballos: Int
         val msg: String = if (!esEdicion) "Introduce los caballos del vehiculo (30-600) -> " else "Introduce nuevos caballos (30-600)-(Enter/vacio si no quieres modificarlo) -> "
+
         do {
             print(msg)
             caballos = readln().toIntOrNull() ?: -1
@@ -83,6 +86,7 @@ class ConsolaEntradaDatos : EntradaDatos{
     override fun pedirPrecio(esEdicion: Boolean): Double {
         var precio: Double
         val msg: String = if (!esEdicion) "Introduce precio del vehiculo (5.000 - 400.000) -> " else "Introduce nuevo precio (5.000 - 400.000)-(Enter/vacio si no quieres modificarlo) -> "
+
         do {
             print(msg)
             precio = readln().toDoubleOrNull() ?: -1.0
@@ -96,6 +100,7 @@ class ConsolaEntradaDatos : EntradaDatos{
     override fun pedirCilindrada(esEdicion: Boolean): Int {
         var cilindrada: Int
         val msg: String = if (!esEdicion) "Introduce la cilindrada: (300, 600, 1000) -> " else "Introduce nueva cilindrada (300, 600, 1000)-(Enter/vacio si no quieres modificarla) -> "
+
         do {
             print(msg)
             cilindrada = readln().toIntOrNull() ?: -1

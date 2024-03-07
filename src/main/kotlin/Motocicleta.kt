@@ -21,7 +21,7 @@ class Motocicleta(
 
 
 enum class Cilindrada(val valor: Int){
-    cc300(300),
-    cc600(600),
-    c1000(1000)
+    CC300(300),
+    CC600(600),
+    CC1000(1000)
 }
