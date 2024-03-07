@@ -2,15 +2,17 @@ package org.practicatrim2
 
 class InventarioVehiculos(private val entradaDatos: EntradaDatos) {
 
+    // TODO AJUSTAR TODO EL PROGRAMA A EL DICCIONARIO
     // Creamos una lista de vehiculos
-    private val vehiculos: MutableList<Vehiculo> = mutableListOf()
+    private val vehiculos: MutableMap<Int, Vehiculo> = mutableMapOf()
 
     /**
      * Agregar un vehiculo al inventario de vehiculos
      */
     fun agregarVehiculo(vehiculo: Vehiculo){
         // TODO: Comprobar y hacer logica de si ya existe el vehiculo, etc con ID
-        vehiculos.add(vehiculo)
+        vehiculos[vehiculo.id] = vehiculo
+        print("Vehiculo agregado correctamente")
     }
 
 
@@ -19,15 +21,23 @@ class InventarioVehiculos(private val entradaDatos: EntradaDatos) {
      */
     fun eliminarVehiculo(id: Int){
         //TODO: AÑADIR LOGICA
-        vehiculos.removeAll {it.id == id}
+        vehiculos.remove(id)
     }
+
+
+    fun obtenerVehiculo(id: Int): Vehiculo?{
+        return vehiculos[id]
+    }
+
+    //TODO
+    fun mostrarAllVehiculos(){}
 
     /**
      * Edita un vehiculo mediante su ID
      */
     fun editarVehiculo(id: Int) {
         // todo comprobar que exista etc y pedir en bucle
-        val vehiculo = vehiculos.find { it.id == id }
+        val vehiculo = obtenerVehiculo(id)
 
         //todo quitar el ? despues acabar la comprobacion de nulo arriba
         vehiculo?.apply {

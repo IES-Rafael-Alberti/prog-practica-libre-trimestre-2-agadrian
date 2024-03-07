@@ -69,13 +69,13 @@ class ConsolaEntradaDatos : EntradaDatos{
 
     override fun pedirCaballos(esEdicion: Boolean): Int {
         var caballos: Int
-        val msg: String = if (!esEdicion) "Introduce los caballos del vehiculo (80-600) -> " else "Introduce nuevos caballos (80-600)-(Enter/vacio si no quieres modificarlo) -> "
+        val msg: String = if (!esEdicion) "Introduce los caballos del vehiculo (30-600) -> " else "Introduce nuevos caballos (30-600)-(Enter/vacio si no quieres modificarlo) -> "
         do {
             print(msg)
             caballos = readln().toIntOrNull() ?: -1
             if (esEdicion && caballos == -1) return caballos
-            if (caballos !in 80..600) print("Error - Cvs no validos. ")
-        } while (caballos !in 80..600)
+            if (caballos !in 30..600) print("Error - Cvs no validos. ")
+        } while (caballos !in 30..600)
         return caballos
     }
 
@@ -99,6 +99,7 @@ class ConsolaEntradaDatos : EntradaDatos{
         do {
             print(msg)
             cilindrada = readln().toIntOrNull() ?: -1
+            if (!Cilindrada.entries.any { it.valor == cilindrada }) print("Error - Cilindrada no valida. ")
         } while (!Cilindrada.entries.any { it.valor == cilindrada })
         return cilindrada
     }
