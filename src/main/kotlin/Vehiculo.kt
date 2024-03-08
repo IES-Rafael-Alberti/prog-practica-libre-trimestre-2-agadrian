@@ -7,39 +7,39 @@ open class Vehiculo(
     private var anio: Int,
     private var kilometros: Int,
     private var caballos: Int,
-    private var precio: Double
+    private var precio: Double? = null,
+    private var seVende: Boolean = false
 ) {
 
     var id = id
         private set
 
 
-
-    fun editarMarca(nuevaMarca: String) {
-        if (nuevaMarca.isNotBlank()) marca = nuevaMarca
+    fun ponerAventa(precioVenta: Double){
+        if (!seVende) {
+            this.precio = precioVenta
+            this.seVende = true
+            println("Puesto en venta correctamente")
+        }
     }
 
-    fun editarModelo(nuevoModelo: String) {
-        if (nuevoModelo.isNotBlank()) modelo = nuevoModelo
+    fun retirarDeVenta(){
+        if (seVende){
+            this.precio = null
+            this.seVende = false
+            println("Retirado de en venta correctamente")
+        }
     }
 
-    fun editarAnio(nuevoAnio: Int) {
-        if (nuevoAnio != -1) anio = nuevoAnio
+
+    fun editarMarca(nuevaMarca: String){
+        this.marca = nuevaMarca
     }
 
-    fun editarKilometros(nuevoKilometros: Int) {
-        if (nuevoKilometros != -1) kilometros = nuevoKilometros
-    }
 
-    fun editarCaballos(nuevosCaballos: Int) {
-        if (nuevosCaballos != -1) caballos = nuevosCaballos
-    }
 
-    fun editarPrecio(nuevoPrecio: Double) {
-        if (nuevoPrecio != -1.0) precio = nuevoPrecio
-    }
 
     override fun toString(): String {
-        return "ID: $id - Marca: $marca - Modelo: $modelo - Año: $anio - Kms: $kilometros - Cvs: $caballos - Precio: $precio"
+        return "ID: $id - Marca: $marca - Modelo: $modelo - Año: $anio - Kms: $kilometros - Cvs: $caballos - En venta: ${if (seVende) "Si" else "No"} ${if (precio != null) "- Precio: $precio€" else ""}"
     }
 }

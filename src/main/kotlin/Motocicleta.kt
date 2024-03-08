@@ -7,15 +7,20 @@ class Motocicleta(
     anio: Int,
     kilometros: Int,
     caballos: Int,
-    precio: Double,
-    private var cilindrada: Int,
+    precio: Double? = null,
+    seVende: Boolean = false,
+    private var cilindrada: Int
 
-) : Vehiculo(id, marca, modelo, anio, kilometros, caballos, precio){
+) : Vehiculo(id, marca, modelo, anio, kilometros, caballos, precio, seVende){
 
 
 
     fun editarCilindrada(nuevaCilindrada: Int) {
         cilindrada = nuevaCilindrada
+    }
+
+    override fun toString(): String {
+        return super.toString() + " - Cilindrada: $cilindrada"
     }
 }
 

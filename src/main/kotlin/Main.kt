@@ -1,7 +1,7 @@
 package org.practicatrim2
 
 
-
+/*
 fun crearVehiculo(creadorVehiculos: CreadorVehiculos, inventarioVehiculos: InventarioVehiculos){
     var opcion: Int?
     do {
@@ -19,39 +19,40 @@ fun crearVehiculo(creadorVehiculos: CreadorVehiculos, inventarioVehiculos: Inven
         1-> {
             val coche = creadorVehiculos.crearCoche()
             println("Coche creado correctamente")
-            inventarioVehiculos.agregarVehiculo(coche)
+            //inventarioVehiculos.agregarVehiculo(coche)
 
         }
         2 -> {
             val moto = creadorVehiculos.crearMoto()
             println("Moto creada correctamente")
-            inventarioVehiculos.agregarVehiculo(moto)
+            //inventarioVehiculos.agregarVehiculo(moto)
         }
     }
 
 }
 
-
+*/
 fun main() {
 
-    val entradaDatos = ConsolaEntradaDatos()
-    val inventarioVehiculos = InventarioVehiculos(entradaDatos)
-    val creadorVeh = CreadorVehiculos(entradaDatos)
-
-    val coche1 = Coche(3, "dgfg", "dfdg", 434, 45000, 34, 34.34)
-    val moto1 = Motocicleta(1, "moto", "reta", 434, 45000, 34, 12000.0, 250)
+    //val entradaDatos = ConsolaEntradaDatos()
+    //val inventarioVehiculos = InventarioVehiculos(entradaDatos)
+    //val creadorVeh = CreadorVehiculos(entradaDatos)
 
 
-    crearVehiculo(creadorVeh, inventarioVehiculos)
+    val gestorVehiculos = InventarioVehiculos()
+    val creadorVehiculos = CreadorVehiculos(gestorVehiculos)
 
-//    println(coche1.toString())
-//    inventarioVehiculos.agregarVehiculo(coche1)
-//
-//    inventarioVehiculos.editarVehiculo(3)
-//    println(coche1.toString())
+    //creadorVehiculos.crearMoto()
+    //creadorVehiculos.crearCoche()
+    //creadorVehiculos.crearMoto()
+    gestorVehiculos.mostrarTodo()
+    gestorVehiculos.ponerEnVenta(2, 5000.0)
 
-    //todo
-   // inventarioVehiculos.mostrarVehiculos()
+    gestorVehiculos.ponerEnVenta(1, 5000.0)
+    gestorVehiculos.mostrarTodo()
+
+
+
 
 
 }

@@ -7,8 +7,9 @@ class Coche (
     anio: Int,
     kilometros: Int,
     caballos: Int,
-    precio: Double,
-) : Vehiculo(id, marca, modelo, anio, kilometros, caballos, precio){
+    precio: Double? = null,
+    seVende: Boolean = false
+) : Vehiculo(id, marca, modelo, anio, kilometros, caballos, precio, seVende){
 
 
 
