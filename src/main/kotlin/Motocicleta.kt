@@ -14,10 +14,11 @@ class Motocicleta(
 ) : Vehiculo(id, marca, modelo, anio, kilometros, caballos, precio, seVende){
 
 
-
-    fun editarCilindrada(nuevaCilindrada: Int) {
-        cilindrada = nuevaCilindrada
+    init {
+        require(Cilindrada.entries.any {it.valor == cilindrada}) {"La cilidrada debe ser (300, 600 o 1000)"}
     }
+
+
 
     override fun toString(): String {
         return super.toString() + " - Cilindrada: $cilindrada"

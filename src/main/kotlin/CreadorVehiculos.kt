@@ -59,30 +59,13 @@ class CreadorVehiculoBase{
 
 
 
-    //fun crearVehiculo(tipoVehiculo: TipoVehiculo, seVende: Boolean = false): Vehiculo?{}
-
-
-    //TODO REVISAR
-    fun solicitarTipoVehiculo(): TipoVehiculo {
-        println("¿Qué tipo de vehículo deseas crear? \n- 1. Coche\n- 2. Motocicleta")
-        var opcion: Int?
-        do {
-            opcion = solicitarDato(
-                "Selecciona una opción: ",
-                "Opcion incorrecta, elije una de las disponibles",
-                {it.toInt() in 1..2},
-                { it.toInt()}
-            )
-        } while (opcion !in 1..2)
-        return if (opcion == 1) TipoVehiculo.COCHE else TipoVehiculo.MOTO
-    }
 
 
 
 
 
 
-
+/*
 
 
 class CreadorVehiculos(private val gestorInventario: InventarioVehiculos) {
@@ -206,38 +189,5 @@ class CreadorVehiculos(private val gestorInventario: InventarioVehiculos) {
     }
 }
 
-/**
- * Solicita al usuario un dato con un mensaje dado y realiza la validación del mismo.
- *
- * @param mensaje Mensaje que se muestra al usuario para solicitar el dato.
- * @param mensajeError Mensaje de error que se muestra al usuario en caso de que la entrada sea inválida.
- * @param validator Función de validación que verifica si la entrada del usuario es válida.
- * @param parser Función que convierte la entrada del usuario en el tipo de dato deseado.
- * @return El dato ingresado por el usuario, convertido al tipo especificado.
- * @throws IllegalArgumentException si la entrada es inválida o está vacía.
- */
-fun <T> solicitarDato(
-    mensaje: String,
-    mensajeError: String,
-    validator: (String) -> Boolean,
-    parser: (String) -> T,
-    editar: Boolean = false
-): T {
-    print(mensaje)
-    while (true) {
-        try {
-            val input = readln()
-            if (editar && input.isBlank()) return parser(input)
-            if (validator(input)) {
-                return parser(input)
-            } else {
-                throw IllegalArgumentException(mensajeError)
-            }
-        } catch (e: NumberFormatException) {
-            print("Error: Debes introducir valores numericos. Por favor, intenta de nuevo -> ")
-        } catch (e: Exception) {
-            print("Error: ${mensajeError}. Por favor, intenta de nuevo -> ")
-        }
-    }
-}
 
+*/
