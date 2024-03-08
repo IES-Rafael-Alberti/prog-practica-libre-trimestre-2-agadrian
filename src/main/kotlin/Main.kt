@@ -46,11 +46,10 @@ fun main() {
     //creadorVehiculos.crearCoche()
     //creadorVehiculos.crearMoto()
     gestorVehiculos.mostrarTodo()
-    gestorVehiculos.ponerEnVenta(2, 5000.0)
+    //gestorVehiculos.ponerEnVenta(2, 5000.0)
 
-    gestorVehiculos.ponerEnVenta(1, 5000.0)
+    gestorVehiculos.editar(1)
     gestorVehiculos.mostrarTodo()
-
 
 
 

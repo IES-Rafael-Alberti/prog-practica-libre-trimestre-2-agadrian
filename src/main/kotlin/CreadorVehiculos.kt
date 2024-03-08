@@ -220,12 +220,14 @@ fun <T> solicitarDato(
     mensaje: String,
     mensajeError: String,
     validator: (String) -> Boolean,
-    parser: (String) -> T
+    parser: (String) -> T,
+    editar: Boolean = false
 ): T {
     print(mensaje)
     while (true) {
         try {
-            val input = readlnOrNull() ?: throw IllegalArgumentException("Entrada vacía")
+            val input = readln()
+            if (editar && input.isBlank()) return parser(input)
             if (validator(input)) {
                 return parser(input)
             } else {
@@ -238,3 +240,4 @@ fun <T> solicitarDato(
         }
     }
 }
+

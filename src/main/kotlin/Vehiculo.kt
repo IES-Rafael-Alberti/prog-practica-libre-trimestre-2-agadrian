@@ -33,7 +33,8 @@ open class Vehiculo(
 
 
     fun editarMarca(nuevaMarca: String){
-        this.marca = nuevaMarca
+        if (nuevaMarca.isNotBlank()) this.marca = nuevaMarca
+
     }
 
 
