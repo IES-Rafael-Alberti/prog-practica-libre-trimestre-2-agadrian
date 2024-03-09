@@ -1,5 +1,7 @@
 package org.practicatrim2
 
+import java.util.*
+
 class GestionConsola {
 
 
@@ -13,10 +15,8 @@ class GestionConsola {
      * @return El dato ingresado por el usuario, convertido al tipo especificado.
      * @throws IllegalArgumentException si la entrada es inválida o está vacía.
      */
-    fun <T> solicitarDato(
+    inline fun <reified T> solicitarDato(
         mensaje: String,
-        //mensajeError: String,
-        //validator: (String) -> Boolean,
         parser: (String) -> T,
         editar: Boolean = false
     ): T {
@@ -24,15 +24,28 @@ class GestionConsola {
         while (true) {
             try {
                 val input = readln()
-                if (editar && input.isBlank()) return parser(input)
+                if (editar && input.isBlank()){
+                    return obtenerValorPredeterminado()
+                }
                 return parser(input)
             } catch (e: NumberFormatException) {
                 print("Error: Debes introducir valores numericos. Por favor, intenta de nuevo -> ")
             } catch (e: Exception) {
-                print("Error: ${"Error iyo"}. Por favor, intenta de nuevo -> ")
+                print("Error desconocido - Por favor, intenta de nuevo -> ")
             }
         }
     }
+
+    inline fun <reified T> obtenerValorPredeterminado(): T {
+        return when (T::class) {
+            Int::class -> -1 as T
+            String::class -> "" as T
+            Double::class -> -1.0 as T
+            else -> throw IllegalArgumentException("No se puede asignar un valor predeterminado para este tipo")
+        }
+    }
+
+
 }
 
 

@@ -1,6 +1,10 @@
 package org.practicatrim2
 
+import java.util.*
 
+fun String.capitalizar(): String {
+    return this.lowercase().replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+}
 
 fun main() {
 
@@ -25,8 +29,11 @@ fun main() {
     gestorVehiculos.mostrarTodo()
 
 
-    val coche = Coche.crearCoche(gestionConsola)
-    gestorVehiculos.agregar(coche)
+    val moto = Motocicleta.crearMoto(gestionConsola, true)
+    gestorVehiculos.agregar(moto)
+
+    gestorVehiculos.editar(45)
+
 
     //Vehiculo.crearMoto(gestionConsola)
 

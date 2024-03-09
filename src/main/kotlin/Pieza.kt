@@ -10,8 +10,4 @@ data class Pieza(
     )
 
 
-enum class TipoVehiculo{
-    COCHE,
-    MOTO
 
-}
