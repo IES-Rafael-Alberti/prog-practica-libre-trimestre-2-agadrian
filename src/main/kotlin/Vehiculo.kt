@@ -80,11 +80,18 @@ abstract class Vehiculo(
 
     fun ponerAventa(precioVenta: Double){
         if (!seVende) {
-            this.precio = precioVenta
-            this.seVende = true
-            println("Puesto en venta correctamente")
+            try {
+                comprobarPrecio(precioVenta)
+                this.precio = precioVenta
+                this.seVende = true
+                println("Puesto en venta correctamente")
+            }catch (e: Exception){
+                println("Error - ${e.message}")
+            }
+
+
         }else{
-            println("El vehiculo con ID $id ya esta en venta")
+            println("El vehiculo con ID $id ya estaba en venta")
         }
     }
 
@@ -101,7 +108,6 @@ abstract class Vehiculo(
 
 
 
-    // TODO: O CREAR UNA FUNCION PARA CADA UNA, O HACER TODSA LAS PORPIEDADES PUBLICAS Y HACERLE UN SET , EN EL QUE MODIFIQUE CON EL NUEVO VALOR SI NO ES BLANCO, Y QUE LANZA REQUIRE. PARA LO DEL REQUIRE CREAR UNA FUNCION YA QUE LO LLAMO EN EL SET Y EN EL INIT.
     /**
      * Si la nueva marca introducida esta vacia, se deja la misma que tenia.
      * Si no, se modifica por la nueva

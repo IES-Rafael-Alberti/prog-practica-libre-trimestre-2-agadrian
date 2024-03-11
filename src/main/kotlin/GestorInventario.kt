@@ -89,7 +89,7 @@ class InventarioVehiculos(): GestorInventario<Vehiculo> {
         val vehiculo = listadoItems[id]
 
         if (vehiculo != null){
-            println("Introduce nuevos datos para el vehiculo con ID $id: ")
+            println("Introduce nuevos datos para el vehiculo con ID $id ")
 
             var ok = false
             do {
@@ -158,7 +158,7 @@ class InventarioVehiculos(): GestorInventario<Vehiculo> {
             }while (!ok)
 
         }else{
-            println("No existe el vehiculo con ID : $id")
+            println("No existe el vehiculo con ID $id")
         }
     }
 
@@ -180,14 +180,61 @@ class InventarioVehiculos(): GestorInventario<Vehiculo> {
         listadoItems.values.forEach { println(it) }
     }
 
-    fun ponerEnVenta(id: Int, precio: Double){
-        val vehiculo = listadoItems[id]
-        vehiculo?.ponerAventa(precio) ?: println("El vehiculo con ID $id no existe en el inventario")
+    fun ponerEnVenta(){
+
+        val vehiculosNoVenta = obtenerVehiculosNoVenta()
+        if (vehiculosNoVenta != null){
+
+            println("Listado de vehiculo que pueden ponerse en venta: ")
+            mostrarVehNoVenta()
+            val id = preguntarId()
+            val precio = gestionConsola.solicitarDato("Introduce precio de venta: ", {it.toDouble()})
+            val vehiculo = listadoItems[id]
+            vehiculo?.ponerAventa(precio) ?: println("El vehiculo con ID $id no existe en el inventario")
+        }
+
+
     }
 
-    fun quitarDeVentas(id: Int){
-        val vehiculo = listadoItems[id]
-        vehiculo?.retirarDeVenta() ?: println("El vehiculo con ID $id no existe en el inventario")
+    fun quitarDeVentas(){
+        val vehiculosEnVenta = obtenerVehiculosVenta()
+        if (vehiculosEnVenta != null){
+            println("Listado de vehiculo que estan en venta: ")
+            mostrarVehVenta()
+            val id = preguntarId()
+            val vehiculo = listadoItems[id]
+            vehiculo?.retirarDeVenta() ?: println("El vehiculo con ID $id no existe en el inventario")
+        }else{
+            println("No hay vehiculos en venta")
+        }
+
+    }
+
+    private fun obtenerVehiculosVenta(): List<Vehiculo>? {
+        val vehiculosVenta = listadoItems.values.filter {it.getSeVende()}
+        if (vehiculosVenta.isNotEmpty()) {
+            return vehiculosVenta
+        }
+        return null
+    }
+
+    private fun obtenerVehiculosNoVenta(): List<Vehiculo>?{
+        val vehiculosVenta = listadoItems.values.filter {!it.getSeVende()}
+        if (vehiculosVenta.isNotEmpty()) {
+            return vehiculosVenta
+        }
+        return null
+    }
+
+
+    private fun mostrarVehVenta(){
+        val veh = obtenerVehiculosVenta()
+        if (veh != null) veh.forEach { println(it) }
+    }
+
+    private fun mostrarVehNoVenta(){
+        val veh = obtenerVehiculosNoVenta()
+        if (veh != null) veh.forEach { println(it) }
     }
 }
 

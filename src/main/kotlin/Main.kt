@@ -6,10 +6,9 @@ fun String.capitalizar(): String {
     return this.lowercase().replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
 }
 
-//TODO: "Cambiar estado a tipo EstadoVehiculo"
+//TODO: "Cambiar estado a tipo EstadoVehiculo" en el constructor del vehiculo
 //TODO: Al reparar, que cambie el estado a reparado
 //TODO: Poder modificar el estado del vehiculo en la funcion de editar vehiculo
-//TODO: Añadir al menu las opciones poner y quitar de venta. Al elegirlas, mostrar automaticamente la lista de vehiculo que estan o no en venta. (si elije poner en venta, mostrar los que no lo estan y viceversa)
 //TODO: CAMBIAR DOCSTRING DE LA GESTIONCONSOLA
 
 

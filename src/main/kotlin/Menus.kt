@@ -6,7 +6,7 @@ package org.practicatrim2
 
 
 
-class Menu(val gestorConsola: GestionConsola = GestionConsola()) {
+class Menu() {
     companion object{
         fun pedirOpcion(min: Int, max: Int) : Int{
             var opcion: Int
@@ -76,19 +76,19 @@ class Menu(val gestorConsola: GestionConsola = GestionConsola()) {
         var opc: Int
         do {
             imprimirGestionInventarioVehiculos()
-            opc = pedirOpcion(1,6)
+            opc = pedirOpcion(1,8)
 
             when (opc){
                 1 -> inventarioVeh.agregarVehiculo()
                 2 -> inventarioVeh.eliminar()
                 3 -> inventarioVeh.editar()
-                4 -> inventarioVeh.mostrar()
-                5 -> inventarioVeh.mostrarTodo()
-
-
+                4 -> inventarioVeh.ponerEnVenta()
+                5 -> inventarioVeh.quitarDeVentas()
+                6 -> inventarioVeh.mostrar()
+                7 -> inventarioVeh.mostrarTodo()
             }
 
-        }while (opc != 6)
+        }while (opc != 8)
     }
 
     /**
@@ -99,9 +99,11 @@ class Menu(val gestorConsola: GestionConsola = GestionConsola()) {
         println("1.- Agregar vehiculo")
         println("2.- Eliminar vehiculo")
         println("3.- Editar vehiculo")
-        println("4.- Mostrar informacion vehiculo")
-        println("5.- Mostrar listado vehiculos")
-        println("6.- Volver")
+        println("4.- Poner en venta")
+        println("5.- Quitar de venta")
+        println("6.- Mostrar informacion vehiculo")
+        println("7.- Mostrar listado vehiculos")
+        println("8.- Volver")
     }
 
 
