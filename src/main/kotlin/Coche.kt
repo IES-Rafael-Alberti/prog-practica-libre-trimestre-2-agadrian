@@ -8,11 +8,13 @@ class Coche (
     anio: Int,
     kilometros: Int,
     caballos: Int,
+    estado: String,
     precio: Double? = null,
-    seVende: Boolean = false
-) : Vehiculo(id, tipoVeh,marca, modelo, anio, kilometros, caballos, precio, seVende){
+    seVende: Boolean = false,
 
-    // TODO AÑADIR COMO PRIPIEDAD EL TIPO DE VEHCILO QUE ES
+) : Vehiculo(id, tipoVeh,marca, modelo, anio, kilometros, caballos, estado, precio, seVende){
+
+
     companion object {
         /**
          * Funcion que crea un objeto tipo coche. Se inicializa como nulo y se pide los valores en bucle hasta que se introducen correctamente y se crea el coche.
@@ -34,6 +36,7 @@ class Coche (
                         gestionConsola.solicitarDato("Año (1970 - 2024) -> ", { it.toInt() }),
                         gestionConsola.solicitarDato("Kms (0 - 1.000.000) -> ", { it.toInt() }),
                         gestionConsola.solicitarDato("Caballos (30 - 600) -> ", { it.toInt() }),
+                        gestionConsola.solicitarDato("Introduce estado del coche (Nuevo, Roto, Reparado) -> ", {it.capitalizar()}),
                         if (enVenta) gestionConsola.solicitarDato("Precio -> ", { it.toDouble() }) else null,
                         enVenta
                     )

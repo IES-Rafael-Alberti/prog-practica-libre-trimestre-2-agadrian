@@ -8,8 +8,10 @@ abstract class Vehiculo(
     private var anio: Int,
     private var kilometros: Int,
     private var caballos: Int,
+    private val estado: String,
     private var precio: Double? = null,
-    private var seVende: Boolean = false
+    private var seVende: Boolean = false,
+
 ) {
 
     var id = id
@@ -25,6 +27,7 @@ abstract class Vehiculo(
         comprobarKms(kilometros)
         comprobarCvs(caballos)
         comprobarPrecio(precio)
+        comprobarEstado(estado)
     }
 
 
@@ -54,6 +57,11 @@ abstract class Vehiculo(
         require(caballos in 30..600){"Los caballos deben estar en el rango (30 - 600)"}
     }
 
+    private fun comprobarEstado(estado: String){
+        require(estado.isNotBlank()){"No puede estar vacio ${EstadoVehiculo.entries.joinToString { it.name }}"}
+        require(estado.capitalizar() in EstadoVehiculo.entries.map { it.name.capitalizar() }) {"El estado debe ser uno de los siguientes: (${EstadoVehiculo.entries.joinToString { it.name.capitalizar() }})"}
+    }
+
 
     companion object{
 
@@ -75,6 +83,8 @@ abstract class Vehiculo(
             this.precio = precioVenta
             this.seVende = true
             println("Puesto en venta correctamente")
+        }else{
+            println("El vehiculo con ID $id ya esta en venta")
         }
     }
 
@@ -83,6 +93,8 @@ abstract class Vehiculo(
             this.precio = null
             this.seVende = false
             println("Retirado de en venta correctamente")
+        }else{
+            println("El vehiculo con ID $id no esta en venta")
         }
     }
 
@@ -133,6 +145,6 @@ abstract class Vehiculo(
 
 
     override fun toString(): String {
-        return "ID: $id - Vehiculo: ${tipoVehiculo.toString().capitalizar()} - Marca: ${marca.capitalizar()} - Modelo: ${modelo.capitalizar()} - Año: $anio - Kms: $kilometros - Cvs: $caballos - En venta: ${if (seVende) "Si" else "No"} ${if (precio != null) "- Precio: $precio€" else ""}"
+        return "ID: $id - Vehiculo: ${tipoVehiculo.toString().capitalizar()} - Marca: ${marca.capitalizar()} - Modelo: ${modelo.capitalizar()} - Año: $anio - Kms: $kilometros - Cvs: $caballos - En venta: ${if (seVende) "Si" else "No"} ${if (precio != null) "- Precio: $precio€" else ""} - Estado: $estado"
     }
 }

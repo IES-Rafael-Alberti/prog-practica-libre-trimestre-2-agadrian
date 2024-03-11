@@ -8,11 +8,13 @@ class Motocicleta(
     anio: Int,
     kilometros: Int,
     caballos: Int,
+    estado: String,
     precio: Double? = null,
     seVende: Boolean = false,
     private var cilindrada: Int
 
-) : Vehiculo(id, tipoVeh, marca, modelo, anio, kilometros, caballos, precio, seVende){
+
+) : Vehiculo(id, tipoVeh, marca, modelo, anio, kilometros, caballos, estado, precio, seVende){
 
 
     init {
@@ -20,7 +22,7 @@ class Motocicleta(
     }
 
     private fun comprobarCilindrada(cilindrada: Int){
-        require(Cilindrada.entries.any {it.valor == cilindrada}) {"La cilidrada debe ser (300, 600 o 1000)"}
+        require(Cilindrada.entries.any {it.valor == cilindrada}) {"La cilidrada debe ser (${Cilindrada.entries.joinToString { "${it.valor}" }})"}
     }
 
     override fun comprobarCvs(caballos: Int) {
@@ -56,9 +58,10 @@ class Motocicleta(
                         gestionConsola.solicitarDato("Año (1970 - 2024) -> ", {it.toInt()}),
                         gestionConsola.solicitarDato("Kms (0 - 1.000.000) -> ", {it.toInt()}),
                         gestionConsola.solicitarDato("Caballos (30 - 220) -> ", {it.toInt()}),
+                         gestionConsola.solicitarDato("Introduce estado de la moto (Nuevo, Roto, Reparado) -> ", {it}),
                         if (enVenta) gestionConsola.solicitarDato("Precio -> ", {it.toDouble()}) else null,
                         enVenta,
-                        gestionConsola.solicitarDato("Cilindrada (300, 600, 1000) -> ", {it.toInt()})
+                        gestionConsola.solicitarDato("Cilindrada (${Cilindrada.entries.joinToString { "${it.valor}" }}) -> ", {it.toInt()})
                     )
                 } catch (e: Exception) {
                     println("Error al crear la moto: ${e.message}. Prueba de nuevo")
