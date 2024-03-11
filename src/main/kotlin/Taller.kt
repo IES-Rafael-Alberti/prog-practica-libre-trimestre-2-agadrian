@@ -5,10 +5,10 @@ package org.practicatrim2
  * Contiene métodos para reparar vehículos de manera aleatoria.
  */
 object Taller {
-    private val inventarioVehiculos: InventarioVehiculos = InventarioVehiculos()
+    private val inventarioVehiculos: GestorInventario<Vehiculo> = InventarioVehiculos()
     private val inventarioPiezas: InventarioPiezas = InventarioPiezas()
 
-    //TODO Comprobar cuando no hay stock de la pieza, que haga un pedido automaticamente. Comproibarlo de purando
+
     /**
      * Repara un vehículo seleccionado aleatoriamente de los vehículos rotos en el inventario.
      * Selecciona piezas aleatorias del inventario de piezas para la reparación y actualiza el stock.
@@ -26,12 +26,14 @@ object Taller {
             piezas.forEach { (pieza, cantidad) ->
                 println("- ${pieza.nombre}: $cantidad unidades")
                 if (pieza.cantidadStock < cantidad){
-                    inventarioPiezas.realizarPedido(pieza.id)
+                    print("No hay stock suficiente. Realizando pedido de el doble de cantidad necesaria...")
+                    inventarioPiezas.realizarPedido(pieza.id, cantidad*2)
                 }
                 inventarioPiezas.disminuirStock(pieza.id, cantidad)
             }
             vehiculo.estado = "Reparado"
             println("Reparación completada.")
+
         }else{
             println("No hay vehiculos para reparar")
         }
@@ -71,6 +73,21 @@ object Taller {
 
 
     fun mostrarVehiculosReparados() {
-        println("xd")
+        inventarioVehiculos.listadoItems.values.filter { it.estado == "Reparado"  }.forEach{ println(it) }
     }
+
+
+    /**
+     *  // Crea la factura
+     *         val factura = Factura(
+     *             numero = obtenerNumeroFactura(), // Implementa este método para obtener un número de factura único
+     *             fecha = obtenerFechaActual(), // Implementa este método para obtener la fecha actual
+     *             vehiculoReparado = vehiculo,
+     *             costoReparacion = costoReparacion
+     *         )
+     *
+     *
+     *
+     *
+     */
 }

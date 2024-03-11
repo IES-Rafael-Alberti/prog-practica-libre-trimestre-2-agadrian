@@ -1,11 +1,6 @@
 package org.practicatrim2
 
 
-// TODO: VER SI ES BUENA IDEA QUE LA FUNCION DEL MENU PRINCIPAL TENGA INSTACIA DE TODOS LOS INVENTARIOS INCLUSO DEL GESTOR CONSOLA PARA PEDIR DATOS
-
-
-
-
 class Menu() {
     companion object{
         fun pedirOpcion(min: Int, max: Int) : Int{

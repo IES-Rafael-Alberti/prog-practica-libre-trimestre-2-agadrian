@@ -1,15 +1,10 @@
 package org.practicatrim2
 
-import java.util.*
-
 object GestionConsola {
-
 
     fun preguntarId(): Int {
         return solicitarDato("Introduce ID -> ", {it.toInt()})
     }
-
-
 
     /**
      * Solicita un dato al usuario y lo convierte al tipo especificado utilizando un parser personalizado.
