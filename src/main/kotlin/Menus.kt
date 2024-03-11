@@ -34,7 +34,6 @@ class Menu() {
         val inventarioVeh = InventarioVehiculos()
         val inventarioPiezas = InventarioPiezas()
 
-
         var opc: Int
         do {
             imprimirMenuPrincipal()
@@ -43,11 +42,10 @@ class Menu() {
             when (opc){
                 1 -> gestionInventarioVehiculos(inventarioVeh)
                 2 -> gestionInventarioPiezas(inventarioPiezas)
-//                3 -> repararVehiculo()
+                3 -> menuTaller()
 //                4 -> generarFactura()
                 5 -> println("Saliendo del programa...")
             }
-
         }while (opc != 5)
     }
 
@@ -58,7 +56,7 @@ class Menu() {
         println("\nMenu Concesionario")
         println("1.- Gestion inventario vehiculos")
         println("2.- Gestion inventario piezas")
-        println("3.- Reparar vehiculo")
+        println("3.- Taller")
         println("4.- Generar factura")
         println("5.- Salir")
     }
@@ -87,7 +85,6 @@ class Menu() {
                 6 -> inventarioVeh.mostrar()
                 7 -> inventarioVeh.mostrarTodo()
             }
-
         }while (opc != 8)
     }
 
@@ -109,8 +106,6 @@ class Menu() {
 
 
 
-
-
     /**
      * Sub menu 2. Gestion inventario piezas
      */
@@ -121,14 +116,12 @@ class Menu() {
             opc = pedirOpcion(1,6)
 
             when (opc){
-//                1 -> agregarPieza()
-//                2 -> eliminarPieza()
-//                3 -> editarPieza()
-//                4 -> mostrarInformacionPieza()
-//                5 -> mostrarListadoPiezas()
-
+                1 -> inventarioPiezas.eliminar()
+                2 -> inventarioPiezas.editar()
+                3 -> inventarioPiezas.realizarPedido()
+                4 -> inventarioPiezas.mostrar()
+                5 -> inventarioPiezas.mostrarTodo()
             }
-
         }while (opc != 6)
     }
 
@@ -138,15 +131,39 @@ class Menu() {
 
     private fun imprimirGestionInventarioPiezas(){
         println("\nMenu Inventario Piezas")
-        println("1.- Agregar pieza")
-        println("2.- Eliminar pieza")
-        println("3.- Editar pieza")
+        println("1.- Eliminar pieza del stock")
+        println("2.- Editar pieza")
+        println("3.- Realizar pedido piezas")
         println("4.- Mostrar informacion pieza")
         println("5.- Mostrar listado piezas")
-        // TODO: println("5.- Hacer pedido pieza")
-        println("6.- Salir")
+        println("6.- Volver")
     }
 
+
+    /**
+     * Submenu 3. Taller
+     */
+    private fun menuTaller(){
+        var opc: Int
+        do {
+            imprimirOpcionesMenuTaller()
+            opc = pedirOpcion(1,4)
+
+            when (opc){
+                1 -> Taller.repararVehiculo()
+                2 -> Taller.mostrarVehiculosReparados()
+
+            }
+        }while (opc != 4)
+    }
+
+
+    private fun imprimirOpcionesMenuTaller(){
+        println("\nMenu Taller")
+        println("1.- Reparar vehiculo")
+        println("2.- Mostrar Vehiculos Reparados")
+        println("6.- Volver")
+    }
 
 
 

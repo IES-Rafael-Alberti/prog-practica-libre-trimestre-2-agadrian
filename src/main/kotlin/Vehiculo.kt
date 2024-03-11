@@ -8,7 +8,7 @@ abstract class Vehiculo(
     private var anio: Int,
     private var kilometros: Int,
     private var caballos: Int,
-    private val estado: String,
+    var estado: String,
     private var precio: Double? = null,
     private var seVende: Boolean = false,
 
@@ -88,8 +88,6 @@ abstract class Vehiculo(
             }catch (e: Exception){
                 println("Error - ${e.message}")
             }
-
-
         }else{
             println("El vehiculo con ID $id ya estaba en venta")
         }
@@ -99,7 +97,7 @@ abstract class Vehiculo(
         if (seVende){
             this.precio = null
             this.seVende = false
-            println("Retirado de en venta correctamente")
+            println("Retirado de venta correctamente")
         }else{
             println("El vehiculo con ID $id no esta en venta")
         }

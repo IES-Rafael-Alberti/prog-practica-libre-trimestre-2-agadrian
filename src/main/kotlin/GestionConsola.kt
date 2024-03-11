@@ -2,7 +2,13 @@ package org.practicatrim2
 
 import java.util.*
 
-class GestionConsola {
+object GestionConsola {
+
+
+    fun preguntarId(): Int {
+        return solicitarDato("Introduce ID -> ", {it.toInt()})
+    }
+
 
 
     /**

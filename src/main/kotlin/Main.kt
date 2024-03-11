@@ -9,14 +9,13 @@ fun String.capitalizar(): String {
 //TODO: "Cambiar estado a tipo EstadoVehiculo" en el constructor del vehiculo
 //TODO: Al reparar, que cambie el estado a reparado
 //TODO: Poder modificar el estado del vehiculo en la funcion de editar vehiculo
-//TODO: CAMBIAR DOCSTRING DE LA GESTIONCONSOLA
 
 
 fun main() {
 
 
     val gestorVehiculos = InventarioVehiculos()
-    val gestionConsola = GestionConsola()
+
 
     val menu = Menu()
     menu.menuPrincipal()

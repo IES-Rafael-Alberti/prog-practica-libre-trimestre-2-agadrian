@@ -7,7 +7,11 @@ data class Pieza(
     var cantidadStock: Int,
     val precio: Double,
     val vehiculoApto: TipoVehiculo
-    )
+    ){
+    override fun toString(): String {
+        return "ID: $id - Nombre: $nombre - Descripcion: $descripcion - Stock: $cantidadStock - Precio: $precio - Vehiculo apto: $vehiculoApto"
+    }
+}
 
 
 

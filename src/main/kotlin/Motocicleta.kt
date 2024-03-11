@@ -41,27 +41,26 @@ class Motocicleta(
     companion object{
         /**
          * Funcion que crea un objeto tipo Motocicleta. Se inicializa como nulo y se pide los valores en bucle hasta que se introducen correctamente y se crea la moto.
-         * @param gestionConsola Objeto GestionConsola utilizado para solicitar los datos al usuario.
          * @param enVenta Indica si el coche está en venta (por defecto es false). Usado para pedi o no el precio
          * @return Objeto Motocicleta creado a partir de los datos proporcionados por el usuario.
          */
-        fun crearMoto(gestionConsola: GestionConsola, enVenta: Boolean = false) : Motocicleta {
+        fun crearMoto(enVenta: Boolean = false) : Motocicleta {
             var moto: Motocicleta? = null
             crearIdUnica()
             do {
                 try {
                      moto = Motocicleta(
                         idVehUnica,
-                         TipoVehiculo.MOTO,
-                        gestionConsola.solicitarDato("Marca -> ", {it}),
-                        gestionConsola.solicitarDato("Modelo -> ", {it}),
-                        gestionConsola.solicitarDato("Año (1970 - 2024) -> ", {it.toInt()}),
-                        gestionConsola.solicitarDato("Kms (0 - 1.000.000) -> ", {it.toInt()}),
-                        gestionConsola.solicitarDato("Caballos (30 - 220) -> ", {it.toInt()}),
-                         gestionConsola.solicitarDato("Introduce estado de la moto (Nuevo, Roto, Reparado) -> ", {it}),
-                        if (enVenta) gestionConsola.solicitarDato("Precio -> ", {it.toDouble()}) else null,
+                         TipoVehiculo.Moto,
+                        GestionConsola.solicitarDato("Marca -> ", {it}),
+                        GestionConsola.solicitarDato("Modelo -> ", {it}),
+                        GestionConsola.solicitarDato("Año (1970 - 2024) -> ", {it.toInt()}),
+                        GestionConsola.solicitarDato("Kms (0 - 1.000.000) -> ", {it.toInt()}),
+                        GestionConsola.solicitarDato("Caballos (30 - 220) -> ", {it.toInt()}),
+                         GestionConsola.solicitarDato("Introduce estado de la moto (Nuevo, Roto, Reparado) -> ", {it}),
+                        if (enVenta) GestionConsola.solicitarDato("Precio -> ", {it.toDouble()}) else null,
                         enVenta,
-                        gestionConsola.solicitarDato("Cilindrada (${Cilindrada.entries.joinToString { "${it.valor}" }}) -> ", {it.toInt()})
+                        GestionConsola.solicitarDato("Cilindrada (${Cilindrada.entries.joinToString { "${it.valor}" }}) -> ", {it.toInt()})
                     )
                 } catch (e: Exception) {
                     println("Error al crear la moto: ${e.message}. Prueba de nuevo")
