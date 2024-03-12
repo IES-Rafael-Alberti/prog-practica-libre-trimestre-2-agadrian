@@ -65,7 +65,7 @@ abstract class Vehiculo(
 
     companion object{
 
-        var idVehUnica = 10
+        var idVehUnica = 30
         fun crearIdUnica(): Int{
             idVehUnica++
             return idVehUnica
@@ -84,12 +84,12 @@ abstract class Vehiculo(
                 comprobarPrecio(precioVenta)
                 this.precio = precioVenta
                 this.seVende = true
-                println("Puesto en venta correctamente")
+                GestionConsola.imprimirTexto("Puesto en venta correctamente")
             }catch (e: Exception){
-                println("Error - ${e.message}")
+                GestionConsola.imprimirTexto("Error - ${e.message}")
             }
         }else{
-            println("El vehiculo con ID $id ya estaba en venta")
+            GestionConsola.imprimirTexto("El vehiculo con ID $id ya estaba en venta")
         }
     }
 
@@ -97,9 +97,9 @@ abstract class Vehiculo(
         if (seVende){
             this.precio = null
             this.seVende = false
-            println("Retirado de venta correctamente")
+            GestionConsola.imprimirTexto("Retirado de venta correctamente")
         }else{
-            println("El vehiculo con ID $id no esta en venta")
+            GestionConsola.imprimirTexto("El vehiculo con ID $id no esta en venta")
         }
     }
 

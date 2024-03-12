@@ -16,26 +16,27 @@ object Taller {
     fun repararVehiculo(){
         val vehiculo = getVehiculoRotoAleatorio()
         if (vehiculo != null){
-
-            println("Reparando vehículo con ID ${vehiculo.id}...")
+            GestionConsola.imprimirTexto("Reparando vehículo con ID ${vehiculo.id}...")
 
             val piezas = piezasAleatorias(vehiculo)
 
-            // Muestra las piezas y cantidad necesaria, a al vez que se va restando la cantidad del stock del inventario
-            println("Piezas necesarias para la reparación:")
+            // Muestra las piezas y cantidad necesaria, ala vez que se va restando la cantidad del stock del inventario
+            GestionConsola.imprimirTexto("Piezas necesarias para la reparación:")
+
             piezas.forEach { (pieza, cantidad) ->
-                println("- ${pieza.nombre}: $cantidad unidades")
+                GestionConsola.imprimirTexto("- ${pieza.nombre}: $cantidad unidades")
                 if (pieza.cantidadStock < cantidad){
-                    print("No hay stock suficiente. Realizando pedido de el doble de cantidad necesaria...")
+                    GestionConsola.imprimirTexto("No hay stock suficiente. Realizando pedido de el doble de cantidad necesaria...", false)
                     inventarioPiezas.realizarPedido(pieza.id, cantidad*2)
                 }
                 inventarioPiezas.disminuirStock(pieza.id, cantidad)
             }
             vehiculo.estado = "Reparado"
-            println("Reparación completada.")
+            GestionConsola.imprimirTexto("Reparación completada.")
+
 
         }else{
-            println("No hay vehiculos para reparar")
+            GestionConsola.imprimirTexto("No hay vehiculos para reparar")
         }
     }
 
@@ -77,17 +78,4 @@ object Taller {
     }
 
 
-    /**
-     *  // Crea la factura
-     *         val factura = Factura(
-     *             numero = obtenerNumeroFactura(), // Implementa este método para obtener un número de factura único
-     *             fecha = obtenerFechaActual(), // Implementa este método para obtener la fecha actual
-     *             vehiculoReparado = vehiculo,
-     *             costoReparacion = costoReparacion
-     *         )
-     *
-     *
-     *
-     *
-     */
 }

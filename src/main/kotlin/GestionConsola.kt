@@ -1,10 +1,23 @@
 package org.practicatrim2
 
+// TODO: AÑADIR FUNCION QUE IMPRIMA LO PASADO POR PARAMETRO
+
 object GestionConsola {
 
+
+    fun imprimirTexto(texto: String, lineaNueva:Boolean = true){
+        if (lineaNueva) println(texto) else print(texto)
+    }
+
+
+    /**
+     * Solicita una ID
+     */
     fun preguntarId(): Int {
         return solicitarDato("Introduce ID -> ", {it.toInt()})
     }
+
+
 
     /**
      * Solicita un dato al usuario y lo convierte al tipo especificado utilizando un parser personalizado.

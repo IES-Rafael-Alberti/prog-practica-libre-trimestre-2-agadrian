@@ -63,7 +63,7 @@ class Motocicleta(
                         GestionConsola.solicitarDato("Cilindrada (${Cilindrada.entries.joinToString { "${it.valor}" }}) -> ", {it.toInt()})
                     )
                 } catch (e: Exception) {
-                    println("Error al crear la moto: ${e.message}. Prueba de nuevo")
+                    GestionConsola.imprimirTexto("Error al crear la moto: ${e.message}. Prueba de nuevo")
                 }
             }while (moto == null)
             return moto

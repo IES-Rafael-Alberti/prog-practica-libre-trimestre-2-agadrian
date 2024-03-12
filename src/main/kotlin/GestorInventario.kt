@@ -47,14 +47,14 @@ class InventarioVehiculos(): GestorInventario<Vehiculo> {
 
 
     private fun solicitarTipoVeh(): TipoVehiculo{
-        println("Tipos de vehiculos: ")
+        GestionConsola.imprimirTexto("Tipos de vehiculos: ")
         TipoVehiculo.entries.forEachIndexed { index, tipo ->
-            println("${index + 1}. $tipo")
+            GestionConsola.imprimirTexto("${index + 1}. $tipo")
         }
         var opc: Int
         do {
             opc = GestionConsola.solicitarDato("Introduce opcion -> ", {it.toInt()})
-            if (opc !in 1..TipoVehiculo.entries.size ) print("Opcion no valida. ")
+            if (opc !in 1..TipoVehiculo.entries.size ) GestionConsola.imprimirTexto("Opcion no valida. ", false)
         }while (opc !in 1..TipoVehiculo.entries.size)
         return TipoVehiculo.entries[opc - 1]
     }
@@ -76,9 +76,9 @@ class InventarioVehiculos(): GestorInventario<Vehiculo> {
 
         if (!listadoItems.containsKey(veh.id)){
             listadoItems[veh.id] = veh
-            println("Vehiculo agregado correctamente")
+            GestionConsola.imprimirTexto("Vehiculo agregado correctamente")
         }else{
-            println("Error, ya existe un vehiculo con el ID: ${veh.id}")
+            GestionConsola.imprimirTexto("Error, ya existe un vehiculo con el ID: ${veh.id}")
         }
     }
 
@@ -89,9 +89,9 @@ class InventarioVehiculos(): GestorInventario<Vehiculo> {
 
         if (listadoItems.containsKey(id)){
             listadoItems.remove(id)
-            println("Vehiculo eliminado correctamente")
+            GestionConsola.imprimirTexto("Vehiculo eliminado correctamente")
         }else{
-            println("Error, no existe ningun vehiculo con el ID: $id")
+            GestionConsola.imprimirTexto("Error, no existe ningun vehiculo con el ID: $id")
         }
     }
 
@@ -181,16 +181,16 @@ class InventarioVehiculos(): GestorInventario<Vehiculo> {
         val id = GestionConsola.preguntarId()
         if (listadoItems.containsKey(id)){
             val vehiculo = listadoItems[id]
-            println("Información del vehiculo con ID $id: ")
+            GestionConsola.imprimirTexto("Información del vehiculo con ID $id: ")
             println(vehiculo)
         } else {
-            println("No se encontró un coche con el ID $id.")
+            GestionConsola.imprimirTexto("No se encontró un coche con el ID $id.")
         }
     }
 
 
     override fun mostrarTodo() {
-        println("Listado de todos los vehiculos: ")
+        GestionConsola.imprimirTexto("Listado de todos los vehiculos: ")
         listadoItems.values.forEach { println(it) }
     }
 
@@ -198,25 +198,25 @@ class InventarioVehiculos(): GestorInventario<Vehiculo> {
 
         val vehiculosNoVenta = obtenerVehiculosNoVenta()
         if (vehiculosNoVenta != null){
-            println("Listado de vehiculo que pueden ponerse en venta: ")
+            GestionConsola.imprimirTexto("Listado de vehiculo que pueden ponerse en venta: ")
             mostrarVehNoVenta()
             val id = GestionConsola.preguntarId()
             val precio = GestionConsola.solicitarDato("Introduce precio de venta: ", {it.toDouble()})
             val vehiculo = listadoItems[id]
-            vehiculo?.ponerAventa(precio) ?: println("El vehiculo con ID $id no existe en el inventario")
+            vehiculo?.ponerAventa(precio) ?: GestionConsola.imprimirTexto("El vehiculo con ID $id no existe en el inventario")
         }
     }
 
     fun quitarDeVentas(){
         val vehiculosEnVenta = obtenerVehiculosVenta()
         if (vehiculosEnVenta != null){
-            println("Listado de vehiculo que estan en venta: ")
+            GestionConsola.imprimirTexto("Listado de vehiculo que estan en venta: ")
             mostrarVehVenta()
             val id = GestionConsola.preguntarId()
             val vehiculo = listadoItems[id]
             vehiculo?.retirarDeVenta() ?: println("El vehiculo con ID $id no existe en el inventario")
         }else{
-            println("No hay vehiculos en venta")
+            GestionConsola.imprimirTexto("No hay vehiculos en venta")
         }
     }
 
@@ -290,9 +290,9 @@ class InventarioPiezas(): GestorInventario<Pieza>{
         val id = GestionConsola.preguntarId()
         if (listadoItems.containsKey(id)){
             listadoItems.remove(id)
-            println("Pieza eliminada correctamente")
+            GestionConsola.imprimirTexto("Pieza eliminada correctamente")
         }else{
-            println("Error, no existe ninguna pieza con el ID $id")
+            GestionConsola.imprimirTexto("Error, no existe ninguna pieza con el ID $id")
         }
     }
 
@@ -303,12 +303,12 @@ class InventarioPiezas(): GestorInventario<Pieza>{
         if (pieza!= null){
             if (pieza.cantidadStock - cantidad >= 0){
                 pieza.cantidadStock -= cantidad
-                println("Se ha reducido el stock de la pieza con ID $id en $cantidad unidades. Stock actual: ${pieza.cantidadStock}")
+                GestionConsola.imprimirTexto("Se ha reducido el stock de la pieza con ID $id en $cantidad unidades. Stock actual: ${pieza.cantidadStock}")
             }else {
-                println("No hay suficientes unidades de la pieza con ID $id para reducir el stock en $cantidad unidades.")
+                GestionConsola.imprimirTexto("No hay suficientes unidades de la pieza con ID $id para reducir el stock en $cantidad unidades.")
             }
         }else{
-            println("No se encontró una pieza con el ID $id.")
+            GestionConsola.imprimirTexto("No se encontró una pieza con el ID $id.")
         }
     }
 
@@ -316,13 +316,13 @@ class InventarioPiezas(): GestorInventario<Pieza>{
         val id = GestionConsola.preguntarId()
         val pieza = listadoItems[id]
         if (pieza != null) {
-            println("Pieza elegida: ")
+            GestionConsola.imprimirTexto("Pieza elegida: ")
             println(pieza)
             val nuevaDescripcion = GestionConsola.solicitarDato("Introduce nueva descripcion: ", { it })
             pieza.descripcion = nuevaDescripcion
-            println("La descripción de la pieza con ID $id ha sido actualizada.")
+            GestionConsola.imprimirTexto("La descripción de la pieza con ID $id ha sido actualizada.")
         } else {
-            println("No se encontró una pieza con el ID $id.")
+            GestionConsola.imprimirTexto("No se encontró una pieza con el ID $id.")
         }
     }
 
@@ -332,7 +332,7 @@ class InventarioPiezas(): GestorInventario<Pieza>{
      */
     fun realizarPedido(id: Int? = null, cant: Int? = null){
         val piezaId = id ?: run {
-            print("De que pieza quieres hacer el pedido. ")
+            GestionConsola.imprimirTexto("De que pieza quieres hacer el pedido. ", false)
             GestionConsola.preguntarId()
         }
 
@@ -340,10 +340,10 @@ class InventarioPiezas(): GestorInventario<Pieza>{
             val cantidad = cant ?: GestionConsola.solicitarDato("Introduce cantidad de piezas del pedido -> ", {it.toInt()})
             listadoItems[piezaId]?.let { pieza ->
                 pieza.cantidadStock += cantidad
-                println("Pedido exitoso. Pieza pedida: ${pieza.nombre} - ID: $piezaId - Cantidad previa: ${pieza.cantidadStock - cantidad} - Cantidad pedida: $cantidad - Cantidad final: ${pieza.cantidadStock}")
+                GestionConsola.imprimirTexto("Pedido exitoso. Pieza pedida: ${pieza.nombre} - ID: $piezaId - Cantidad previa: ${pieza.cantidadStock - cantidad} - Cantidad pedida: $cantidad - Cantidad final: ${pieza.cantidadStock}")
             }
         }else{
-            println("No existe la pieza con ID $piezaId")
+            GestionConsola.imprimirTexto("No existe la pieza con ID $piezaId")
         }
 
 
@@ -354,15 +354,15 @@ class InventarioPiezas(): GestorInventario<Pieza>{
         val id = GestionConsola.preguntarId()
         val pieza = listadoItems[id]
         if (pieza != null) {
-            println("Información de la pieza con ID $id: ")
+            GestionConsola.imprimirTexto("Información de la pieza con ID $id: ")
             println(pieza)
         } else {
-            println("No se encontró una pieza con el ID $id.")
+            GestionConsola.imprimirTexto("No se encontró una pieza con el ID $id.")
         }
     }
 
     override fun mostrarTodo() {
-        println("Listado de todas las piezas:")
+        GestionConsola.imprimirTexto("Listado de todas las piezas:")
         listadoItems.values.forEach { println(it) }
     }
 

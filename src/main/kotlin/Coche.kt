@@ -40,7 +40,7 @@ class Coche (
                         enVenta
                     )
                 } catch (e: Exception) {
-                    println("Error al crear el coche: ${e.message}. Prueba de nuevo.")
+                    GestionConsola.imprimirTexto("Error al crear el coche: ${e.message}. Prueba de nuevo.")
                 }
             }while (coche == null)
             return coche

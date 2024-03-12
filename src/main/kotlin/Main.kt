@@ -12,10 +12,7 @@ fun String.capitalizar(): String {
 
 
 fun main() {
-
     val menu = Menu()
     menu.menuPrincipal()
-
-
 
 }

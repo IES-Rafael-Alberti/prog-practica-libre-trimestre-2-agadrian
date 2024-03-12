@@ -7,13 +7,13 @@ class Menu() {
             var opcion: Int
 
             do {
-                print("Introduce opcion -> ")
+                GestionConsola.imprimirTexto("Introduce opcion -> ", false)
                 opcion = readln().toIntOrNull() ?:-1
 
                 if (opcion == -1){
-                    print("Opcion no valida. ")
+                    GestionConsola.imprimirTexto("Opcion no valida. ", false)
                 } else if (opcion !in min..max) {
-                    print("Opcion fuera de rango. ")
+                    GestionConsola.imprimirTexto("Opcion fuera de rango. ", false)
                 }
             } while (opcion !in min..max)
 
@@ -39,7 +39,7 @@ class Menu() {
                 2 -> gestionInventarioPiezas(inventarioPiezas)
                 3 -> menuTaller()
 //                4 -> generarFactura()
-                5 -> println("Saliendo del programa...")
+                5 -> GestionConsola.imprimirTexto("Saliendo del programa...")
             }
         }while (opc != 5)
     }
@@ -48,12 +48,12 @@ class Menu() {
      * Imprime las opciones del menu principal
      */
     private fun imprimirMenuPrincipal(){
-        println("\nMenu Concesionario")
-        println("1.- Gestion inventario vehiculos")
-        println("2.- Gestion inventario piezas")
-        println("3.- Taller")
-        println("4.- Generar factura")
-        println("5.- Salir")
+        GestionConsola.imprimirTexto("\nMenu Concesionario")
+        GestionConsola.imprimirTexto("1.- Gestion inventario vehiculos")
+        GestionConsola.imprimirTexto("2.- Gestion inventario piezas")
+        GestionConsola.imprimirTexto("3.- Taller")
+        GestionConsola.imprimirTexto("4.- Generar factura")
+        GestionConsola.imprimirTexto("5.- Salir")
     }
 
 
@@ -87,15 +87,15 @@ class Menu() {
      * Imprime las opciones del submenu 1. Gestion inventario vehiculos
      */
     private fun imprimirGestionInventarioVehiculos(){
-        println("\nMenu Inventario Vehiculos")
-        println("1.- Agregar vehiculo")
-        println("2.- Eliminar vehiculo")
-        println("3.- Editar vehiculo")
-        println("4.- Poner en venta")
-        println("5.- Quitar de venta")
-        println("6.- Mostrar informacion vehiculo")
-        println("7.- Mostrar listado vehiculos")
-        println("8.- Volver")
+        GestionConsola.imprimirTexto("\nMenu Inventario Vehiculos")
+        GestionConsola.imprimirTexto("1.- Agregar vehiculo")
+        GestionConsola.imprimirTexto("2.- Eliminar vehiculo")
+        GestionConsola.imprimirTexto("3.- Editar vehiculo")
+        GestionConsola.imprimirTexto("4.- Poner en venta")
+        GestionConsola.imprimirTexto("5.- Quitar de venta")
+        GestionConsola.imprimirTexto("6.- Mostrar informacion vehiculo")
+        GestionConsola.imprimirTexto("7.- Mostrar listado vehiculos")
+        GestionConsola.imprimirTexto("8.- Volver")
     }
 
 
@@ -125,13 +125,13 @@ class Menu() {
      */
 
     private fun imprimirGestionInventarioPiezas(){
-        println("\nMenu Inventario Piezas")
-        println("1.- Eliminar pieza del stock")
-        println("2.- Editar pieza")
-        println("3.- Realizar pedido piezas")
-        println("4.- Mostrar informacion pieza")
-        println("5.- Mostrar listado piezas")
-        println("6.- Volver")
+        GestionConsola.imprimirTexto("\nMenu Inventario Piezas")
+        GestionConsola.imprimirTexto("1.- Eliminar pieza del stock")
+        GestionConsola.imprimirTexto("2.- Editar pieza")
+        GestionConsola.imprimirTexto("3.- Realizar pedido piezas")
+        GestionConsola.imprimirTexto("4.- Mostrar informacion pieza")
+        GestionConsola.imprimirTexto("5.- Mostrar listado piezas")
+        GestionConsola.imprimirTexto("6.- Volver")
     }
 
 
@@ -154,6 +154,10 @@ class Menu() {
 
 
     private fun imprimirOpcionesMenuTaller(){
+        GestionConsola.imprimirTexto("\nMenu Taller")
+        GestionConsola.imprimirTexto("1.- Reparar vehiculo")
+        GestionConsola.imprimirTexto("2.- Mostrar Vehiculos Reparados")
+        GestionConsola.imprimirTexto("6.- Volver")
         println("\nMenu Taller")
         println("1.- Reparar vehiculo")
         println("2.- Mostrar Vehiculos Reparados")
