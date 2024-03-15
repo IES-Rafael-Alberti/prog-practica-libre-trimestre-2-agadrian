@@ -1,29 +1,36 @@
 package org.practicatrim2
 
-
+/**
+ * Clase que representa el menú principal de la aplicación.
+ */
 class Menu() {
-    companion object{
-        fun pedirOpcion(min: Int, max: Int) : Int{
-            var opcion: Int
 
-            do {
-                GestionConsola.imprimirTexto("Introduce opcion -> ", false)
-                opcion = readln().toIntOrNull() ?:-1
+    /**
+     * Función interna para pedir una opción dentro de un rango específico.
+     * @param min El valor mínimo permitido.
+     * @param max El valor máximo permitido.
+     * @return La opción seleccionada por el usuario.
+     */
+    private fun pedirOpcion(min: Int, max: Int) : Int{
+        var opcion: Int
 
-                if (opcion == -1){
-                    GestionConsola.imprimirTexto("Opcion no valida. ", false)
-                } else if (opcion !in min..max) {
-                    GestionConsola.imprimirTexto("Opcion fuera de rango. ", false)
-                }
-            } while (opcion !in min..max)
+        do {
+            GestionConsola.imprimirTexto("Introduce opcion -> ", false)
+            opcion = readln().toIntOrNull() ?:-1
 
-            return opcion
-        }
+            if (opcion == -1){
+                GestionConsola.imprimirTexto("Opcion no valida. ", false)
+            } else if (opcion !in min..max) {
+                GestionConsola.imprimirTexto("Opcion fuera de rango. ", false)
+            }
+        } while (opcion !in min..max)
+        return opcion
     }
 
 
+
     /**
-     * Menu principal
+     * Función que muestra y gestiona el menú principal.
      */
     fun menuPrincipal(){
         val inventarioVeh = InventarioVehiculos()
@@ -32,32 +39,27 @@ class Menu() {
         var opc: Int
         do {
             imprimirMenuPrincipal()
-            opc = pedirOpcion(1,5)
+            opc = pedirOpcion(1,4)
 
             when (opc){
                 1 -> gestionInventarioVehiculos(inventarioVeh)
                 2 -> gestionInventarioPiezas(inventarioPiezas)
                 3 -> menuTaller()
-//                4 -> generarFactura()
-                5 -> GestionConsola.imprimirTexto("Saliendo del programa...")
+                4 -> GestionConsola.imprimirTexto("Saliendo del programa...")
             }
-        }while (opc != 5)
+        }while (opc != 4)
     }
 
     /**
-     * Imprime las opciones del menu principal
+     * Función interna para imprimir las opciones del menú principal.
      */
     private fun imprimirMenuPrincipal(){
         GestionConsola.imprimirTexto("\nMenu Concesionario")
         GestionConsola.imprimirTexto("1.- Gestion inventario vehiculos")
         GestionConsola.imprimirTexto("2.- Gestion inventario piezas")
         GestionConsola.imprimirTexto("3.- Taller")
-        GestionConsola.imprimirTexto("4.- Generar factura")
-        GestionConsola.imprimirTexto("5.- Salir")
+        GestionConsola.imprimirTexto("4.- Salir")
     }
-
-
-
 
 
 
@@ -84,7 +86,7 @@ class Menu() {
     }
 
     /**
-     * Imprime las opciones del submenu 1. Gestion inventario vehiculos
+     * Función interna para imprimir las opciones del submenu 1. Gestion inventario vehiculos
      */
     private fun imprimirGestionInventarioVehiculos(){
         GestionConsola.imprimirTexto("\nMenu Inventario Vehiculos")
@@ -97,7 +99,6 @@ class Menu() {
         GestionConsola.imprimirTexto("7.- Mostrar listado vehiculos")
         GestionConsola.imprimirTexto("8.- Volver")
     }
-
 
 
 
@@ -120,10 +121,10 @@ class Menu() {
         }while (opc != 6)
     }
 
-    /**
-     * Imprime las opciones del submenu 2. Gestion inventario piezas
-     */
 
+    /**
+     * Función interna para imprimir las opciones del submenu 2. Gestion inventario piezas
+     */
     private fun imprimirGestionInventarioPiezas(){
         GestionConsola.imprimirTexto("\nMenu Inventario Piezas")
         GestionConsola.imprimirTexto("1.- Eliminar pieza del stock")
@@ -135,6 +136,7 @@ class Menu() {
     }
 
 
+
     /**
      * Submenu 3. Taller
      */
@@ -142,34 +144,30 @@ class Menu() {
         var opc: Int
         do {
             imprimirOpcionesMenuTaller()
-            opc = pedirOpcion(1,4)
+            opc = pedirOpcion(1,5)
 
             when (opc){
                 1 -> Taller.repararVehiculo()
                 2 -> Taller.mostrarVehiculosReparados()
-
+                3 -> Taller.mostrarFacturas()
+                4 -> Taller.mostrarAnalisisMeses()
             }
-        }while (opc != 4)
+        }while (opc != 5)
     }
 
 
+    /**
+     * Función interna para imprimir las opciones del submenu 3. Taller
+     */
     private fun imprimirOpcionesMenuTaller(){
         GestionConsola.imprimirTexto("\nMenu Taller")
         GestionConsola.imprimirTexto("1.- Reparar vehiculo")
         GestionConsola.imprimirTexto("2.- Mostrar Vehiculos Reparados")
-        GestionConsola.imprimirTexto("6.- Volver")
-        println("\nMenu Taller")
-        println("1.- Reparar vehiculo")
-        println("2.- Mostrar Vehiculos Reparados")
-        println("6.- Volver")
+        GestionConsola.imprimirTexto("3.- Mostrar lista facturas")
+        GestionConsola.imprimirTexto("4.- Mostrar analisis mensual")
+        GestionConsola.imprimirTexto("5.- Volver")
+
     }
-
-
-
-
-
-
-
 }
 
 

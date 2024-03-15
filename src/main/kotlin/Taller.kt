@@ -1,10 +1,13 @@
 package org.practicatrim2
 
+
 /**
  * Objeto singleton que representa un taller de reparación de vehículos.
- * Contiene métodos para reparar vehículos de manera aleatoria.
+ * Contiene métodos para reparar vehículos de manera aleatoria, mostrar informacion etc.
  */
 object Taller {
+    // Lateinit para inciar la variable posteriormente, pero antes de que se acceda a ella por primera vez tras crear el objeto
+    private var gestorUtilidades: AnalisisVentas = UtilidadesTaller()
     private val inventarioVehiculos: GestorInventario<Vehiculo> = InventarioVehiculos()
     private val inventarioPiezas: InventarioPiezas = InventarioPiezas()
 
@@ -34,6 +37,8 @@ object Taller {
             vehiculo.estado = "Reparado"
             GestionConsola.imprimirTexto("Reparación completada.")
 
+            // Calcular el costo total de las piezas utilizadas, generar factura y la añade a la lista
+            gestorUtilidades.listaFacturas.add(gestorUtilidades.generarFactura(vehiculo, piezas, gestorUtilidades.calcularCostoPiezas(piezas)))
 
         }else{
             GestionConsola.imprimirTexto("No hay vehiculos para reparar")
@@ -72,10 +77,34 @@ object Taller {
     }
 
 
-
+    /**
+     * Muestra los vehículos que han sido reparados con un formato
+     */
     fun mostrarVehiculosReparados() {
-        inventarioVehiculos.listadoItems.values.filter { it.estado == "Reparado"  }.forEach{ println(it) }
+        val lista = inventarioVehiculos.listadoItems.values.filter { it.estado == "Reparado"  }
+
+        if (lista.isNotEmpty()) {
+            GestionConsola.imprimirTexto("Listado de vehiculos reparados: ")
+            GestionConsola.imprimirTexto(String.format("%5s %10s %15s %20s %10s %10s %10s %10s %15s %10s %10s","ID", "Vehículo", "Marca", "Modelo", "Año", "Kms", "CVs", "En venta", "Precio", "Estado", "Cc\n"))
+            lista.forEach{ GestionConsola.imprimirTexto(it.toString()) }
+        }else{
+            GestionConsola.imprimirTexto("No hay vehiculos reparados")
+        }
     }
 
 
+    /**
+     * Muestra las facturas generadas por las reparaciones.
+     */
+    fun mostrarFacturas(){
+        gestorUtilidades.mostrarFacturas()
+    }
+
+
+    /**
+     * Muestra el análisis de las reparaciones realizadas en diferentes meses.
+     */
+    fun mostrarAnalisisMeses(){
+        gestorUtilidades.imprimirAnalisisReparaciones()
+    }
 }

@@ -1,5 +1,18 @@
 package org.practicatrim2
 
+/**
+ * Clase que representa un coche.
+ * @param id ID del coche.
+ * @param tipoVeh Tipo de vehículo.
+ * @param marca Marca del coche.
+ * @param modelo Modelo del coche.
+ * @param anio Año de fabricación del coche.
+ * @param kilometros Kilometraje del coche.
+ * @param caballos Caballos del coche.
+ * @param estado Estado del coche (Nuevo, Roto, Reparado).
+ * @param precio Precio del coche (null si no está en venta).
+ * @param seVende Indica si el coche está en venta.
+ */
 class Coche (
     id: Int,
     tipoVeh: TipoVehiculo,
@@ -14,11 +27,10 @@ class Coche (
 
 ) : Vehiculo(id, tipoVeh,marca, modelo, anio, kilometros, caballos, estado, precio, seVende){
 
-
     companion object {
         /**
-         * Funcion que crea un objeto tipo coche. Se inicializa como nulo y se pide los valores en bucle hasta que se introducen correctamente y se crea el coche.
-         * @param enVenta Indica si el coche está en venta (por defecto es false). Usado para pedi o no el precio
+         * Genera un objeto Coche a partir de los datos proporcionados por el usuario.
+         * @param enVenta Indica si el coche está en venta (por defecto es false). Usado para pedir o no el precio.
          * @return Objeto Coche creado a partir de los datos proporcionados por el usuario.
          */
         fun crearCoche(enVenta: Boolean = false) : Coche {
@@ -46,7 +58,5 @@ class Coche (
             return coche
         }
     }
-
-    //TODO CREAR EL TOSTRING O OTRA FUNCION QUE HAGA LO MISMO PERO CON OTRO FORMATO PARA AGREGAR UN GENERADOR DE INFORME O ALGO PARECIDO
 
 }

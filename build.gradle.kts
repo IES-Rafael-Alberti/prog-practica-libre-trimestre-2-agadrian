@@ -13,7 +13,7 @@ dependencies {
     implementation("junit:junit:4.13.1")
     implementation("org.junit.jupiter:junit-jupiter:5.8.1")
     testImplementation("org.jetbrains.kotlin:kotlin-test")
-    implementation("com.github.ajalt.mordant:mordant:2.2.0")
+    implementation ("org.apache.commons:commons-math3:3.6.1")
 
 }
 

@@ -1,21 +1,54 @@
 package org.practicatrim2
 
-// TODO: AÑADIR FUNCION QUE IMPRIMA LO PASADO POR PARAMETRO
 
+/**
+ * Objeto singleton que proporciona métodos para interactuar con la consola y realizar operaciones de entrada/salida.
+ */
 object GestionConsola {
 
-
+    /**
+     * Imprime un texto en la consola, con la opción de agregar una nueva línea al final.
+     * @param texto El texto que se imprimirá en la consola.
+     * @param lineaNueva Indica si se debe agregar una nueva línea al final. Por defecto es true.
+     */
     fun imprimirTexto(texto: String, lineaNueva:Boolean = true){
         if (lineaNueva) println(texto) else print(texto)
     }
 
 
     /**
-     * Solicita una ID
+     * Solicita al usuario que ingrese un ID.
+     * @return El ID ingresado por el usuario.
      */
     fun preguntarId(): Int {
         return solicitarDato("Introduce ID -> ", {it.toInt()})
     }
+
+
+    /**
+     * Solicita al usuario seleccionar un tipo de vehículo de una lista predefinida.
+     * @return El tipo de vehículo seleccionado por el usuario.
+     */
+    fun solicitarTipoVeh(): TipoVehiculo{
+        imprimirTexto("Tipos de vehiculos: ")
+        TipoVehiculo.entries.forEachIndexed { index, tipo ->
+            imprimirTexto("${index + 1}. $tipo")
+        }
+        var opc: Int
+        do {
+            opc = solicitarDato("Introduce opcion -> ", {it.toInt()})
+            if (opc !in 1..TipoVehiculo.entries.size ) imprimirTexto("Opcion no valida. ", false)
+        }while (opc !in 1..TipoVehiculo.entries.size)
+        return TipoVehiculo.entries[opc - 1]
+    }
+
+
+    // Propiedades estáticas para títulos predefinidos
+    val tituloVehiculos = String.format("%5s %10s %15s %20s %10s %10s %10s %10s %15s %10s %10s","ID", "Vehículo", "Marca", "Modelo", "Año", "Kms", "CVs", "En venta", "Precio", "Estado", "Cc")
+
+    val tituloFacturas =  String.format("%8s %8s %90s %15s %25s", "ID Pieza", "ID Veh", "Piezas Usadas", "Costo total", "Fecha y Hora")
+
+    val tituloPiezas = String.format("%10s %30s %45s %15s %15s %15s", "ID", "Nombre", "Descripcion", "Stock", "Precio", "Veh.Apto")
 
 
 

@@ -1,5 +1,9 @@
 package org.practicatrim2
 
+/**
+ * Interfaz que define las operaciones básicas para gestionar un inventario genérico.
+ * @param T Tipo de elemento que se almacenará en el inventario.
+ */
 interface GestorInventario<T>{
     val listadoItems: MutableMap<Int, T>
     fun eliminar()
@@ -8,9 +12,12 @@ interface GestorInventario<T>{
     fun mostrarTodo()
 }
 
-// TODO: REVISAR SI ES BUENA PRACTICA CREAR UNA INSTANCIA DE GESTION CONSOLA EN AMBAS CLASES DE INVENTARIO
 
-class InventarioVehiculos(): GestorInventario<Vehiculo> {
+/**
+ * Clase que representa un inventario de vehículos.
+ * Implementa la interfaz [GestorInventario] parametrizada con el tipo [Vehiculo].
+ */
+class InventarioVehiculos: GestorInventario<Vehiculo> {
 
     override val listadoItems: MutableMap<Int, Vehiculo> = mutableMapOf(
         1 to Coche(1, TipoVehiculo.Coche, "Ford", "Focus", 2015, 80000, 120, "Roto"),
@@ -46,23 +53,13 @@ class InventarioVehiculos(): GestorInventario<Vehiculo> {
     )
 
 
-    private fun solicitarTipoVeh(): TipoVehiculo{
-        GestionConsola.imprimirTexto("Tipos de vehiculos: ")
-        TipoVehiculo.entries.forEachIndexed { index, tipo ->
-            GestionConsola.imprimirTexto("${index + 1}. $tipo")
-        }
-        var opc: Int
-        do {
-            opc = GestionConsola.solicitarDato("Introduce opcion -> ", {it.toInt()})
-            if (opc !in 1..TipoVehiculo.entries.size ) GestionConsola.imprimirTexto("Opcion no valida. ", false)
-        }while (opc !in 1..TipoVehiculo.entries.size)
-        return TipoVehiculo.entries[opc - 1]
-    }
 
-
+    /**
+     * Crea un nuevo vehículo según la opción seleccionada por el usuario.
+     * @return Vehículo creado.
+     */
     private fun crearVeh(): Vehiculo{
-        val tipoVehiculo = solicitarTipoVeh()
-
+        val tipoVehiculo = GestionConsola.solicitarTipoVeh()
         val veh = when (tipoVehiculo){
             TipoVehiculo.Coche -> Coche.crearCoche()
             TipoVehiculo.Moto -> Motocicleta.crearMoto()
@@ -71,6 +68,9 @@ class InventarioVehiculos(): GestorInventario<Vehiculo> {
     }
 
 
+    /**
+     * Agrega un vehículo al inventario de vehiculos.
+     */
     fun agregarVehiculo() {
         val veh = crearVeh()
 
@@ -83,7 +83,9 @@ class InventarioVehiculos(): GestorInventario<Vehiculo> {
     }
 
 
-
+    /**
+     * Elimina un vehiculo del inventario mediante su ID
+     */
     override fun eliminar() {
         val id = GestionConsola.preguntarId()
 
@@ -95,12 +97,16 @@ class InventarioVehiculos(): GestorInventario<Vehiculo> {
         }
     }
 
+
+    /**
+     * Permite editar un vehiculo mediante la introduccion de los nuevos datos por consola.
+     */
     override fun editar() {
         val id = GestionConsola.preguntarId()
         val vehiculo = listadoItems[id]
 
         if (vehiculo != null){
-            println("Introduce nuevos datos para el vehiculo con ID $id ")
+            GestionConsola.imprimirTexto("Introduce nuevos datos para el vehiculo con ID $id ")
 
             var ok = false
             do {
@@ -166,40 +172,52 @@ class InventarioVehiculos(): GestorInventario<Vehiculo> {
 
                     ok = true
                 } catch (e: Exception) {
-                    println("Error al modificar el vehiculo: ${e.message}. Prueba de nuevo:")
+                    GestionConsola.imprimirTexto("Error al modificar el vehiculo: ${e.message}. Prueba de nuevo:")
                 }
             }while (!ok)
-            println("Vehiculo con ID $id editado correctamente")
+            GestionConsola.imprimirTexto("Vehiculo con ID $id editado correctamente")
 
         }else{
-            println("No existe el vehiculo con ID $id")
+            GestionConsola.imprimirTexto("No existe el vehiculo con ID $id")
         }
     }
 
 
+    /**
+     * Muestra por pantalla el vehiculo seleccionado del inventario mediante su ID
+     */
     override fun mostrar() {
         val id = GestionConsola.preguntarId()
         if (listadoItems.containsKey(id)){
             val vehiculo = listadoItems[id]
-            GestionConsola.imprimirTexto("Información del vehiculo con ID $id: ")
-            println(vehiculo)
+
+            GestionConsola.imprimirTexto("Informacion del vehiculo con ID ${id}:\n${GestionConsola.tituloVehiculos}\n${"=".repeat(GestionConsola.tituloVehiculos.length)}\n$vehiculo")
         } else {
             GestionConsola.imprimirTexto("No se encontró un coche con el ID $id.")
         }
     }
 
 
+    /**
+     * Muestra todos los vehiculos del inventario
+     */
     override fun mostrarTodo() {
-        GestionConsola.imprimirTexto("Listado de todos los vehiculos: ")
-        listadoItems.values.forEach { println(it) }
+        GestionConsola.imprimirTexto("Listado de todos los vehiculos:\n${GestionConsola.tituloVehiculos}\n${"=".repeat(GestionConsola.tituloVehiculos.length)}")
+
+        listadoItems.values.forEach { GestionConsola.imprimirTexto(it.toString()) }
     }
 
+
+    /**
+     * Pone en venta un vehiculo mediante su ID con el precio deseado
+     */
     fun ponerEnVenta(){
 
         val vehiculosNoVenta = obtenerVehiculosNoVenta()
         if (vehiculosNoVenta != null){
-            GestionConsola.imprimirTexto("Listado de vehiculo que pueden ponerse en venta: ")
+            GestionConsola.imprimirTexto("Listado de vehiculos que pueden ponerse en venta:\n${GestionConsola.tituloVehiculos}\n${"=".repeat(GestionConsola.tituloVehiculos.length)}")
             mostrarVehNoVenta()
+
             val id = GestionConsola.preguntarId()
             val precio = GestionConsola.solicitarDato("Introduce precio de venta: ", {it.toDouble()})
             val vehiculo = listadoItems[id]
@@ -207,19 +225,28 @@ class InventarioVehiculos(): GestorInventario<Vehiculo> {
         }
     }
 
+
+    /**
+     * Quita de ventas un vehiculo mediante su ID
+     */
     fun quitarDeVentas(){
         val vehiculosEnVenta = obtenerVehiculosVenta()
         if (vehiculosEnVenta != null){
-            GestionConsola.imprimirTexto("Listado de vehiculo que estan en venta: ")
+            GestionConsola.imprimirTexto("Listado de vehiculos que estan en venta:\n${GestionConsola.tituloVehiculos}\n${"=".repeat(GestionConsola.tituloVehiculos.length)}")
             mostrarVehVenta()
             val id = GestionConsola.preguntarId()
             val vehiculo = listadoItems[id]
-            vehiculo?.retirarDeVenta() ?: println("El vehiculo con ID $id no existe en el inventario")
+            vehiculo?.retirarDeVenta() ?: GestionConsola.imprimirTexto("El vehiculo con ID $id no existe en el inventario")
         }else{
             GestionConsola.imprimirTexto("No hay vehiculos en venta")
         }
     }
 
+
+    /**
+     * Retorna una lista de vehículos que están en venta.
+     * @return Lista de vehículos en venta, o null si no hay ninguno disponible.
+     */
     private fun obtenerVehiculosVenta(): List<Vehiculo>? {
         val vehiculosVenta = listadoItems.values.filter {it.getSeVende()}
         if (vehiculosVenta.isNotEmpty()) {
@@ -228,6 +255,11 @@ class InventarioVehiculos(): GestorInventario<Vehiculo> {
         return null
     }
 
+
+    /**
+     * Retorna una lista de vehículos que no están en venta.
+     * @return Lista de vehículos no en venta, o null si no hay ninguno disponible.
+     */
     private fun obtenerVehiculosNoVenta(): List<Vehiculo>?{
         val vehiculosVenta = listadoItems.values.filter {!it.getSeVende()}
         if (vehiculosVenta.isNotEmpty()) {
@@ -237,18 +269,29 @@ class InventarioVehiculos(): GestorInventario<Vehiculo> {
     }
 
 
+    /**
+     * Muestra por consola la información de los vehículos que están en venta.
+     */
     private fun mostrarVehVenta(){
         val veh = obtenerVehiculosVenta()
-        if (veh != null) veh.forEach { println(it) }
+        if (veh != null) veh.forEach { GestionConsola.imprimirTexto(it.toString()) }
     }
 
+
+    /**
+     * Muestra por consola la información de los vehículos que no están en venta.
+     */
     private fun mostrarVehNoVenta(){
         val veh = obtenerVehiculosNoVenta()
-        if (veh != null) veh.forEach { println(it) }
+        if (veh != null) veh.forEach { GestionConsola.imprimirTexto(it.toString()) }
     }
 }
 
 
+/**
+ * Clase que representa un inventario de piezas.
+ * Implementa la interfaz [GestorInventario] parametrizada con el tipo [Pieza].
+ */
 class InventarioPiezas(): GestorInventario<Pieza>{
 
 
@@ -286,6 +329,11 @@ class InventarioPiezas(): GestorInventario<Pieza>{
     )
 
 
+    /**
+     * Elimina una pieza del inventario basándose en su ID.
+     * Si la pieza con el ID especificado existe en el inventario, se elimina.
+     * Muestra un mensaje informativo de la accion ocurrida
+     */
     override fun eliminar() {
         val id = GestionConsola.preguntarId()
         if (listadoItems.containsKey(id)){
@@ -296,9 +344,14 @@ class InventarioPiezas(): GestorInventario<Pieza>{
         }
     }
 
-    // TODO: revisar, posiblemente crear otra funcion que pregunte cantidad
-    fun disminuirStock(id: Int, cantidad: Int){
 
+    /**
+     * Reduce el stock de una pieza en el inventario.
+     * @param id El ID de la pieza cuyo stock se va a reducir.
+     * @param cantidad La cantidad de unidades que se van a reducir del stock.
+     * Muestra un mensaje informativo de la accion ocurrida
+     */
+    fun disminuirStock(id: Int, cantidad: Int){
         val pieza = listadoItems[id]
         if (pieza!= null){
             if (pieza.cantidadStock - cantidad >= 0){
@@ -312,12 +365,16 @@ class InventarioPiezas(): GestorInventario<Pieza>{
         }
     }
 
+
+    /**
+     * Edita la descripción de una pieza en el inventario.
+     * Se solicita al usuario que ingrese una nueva descripción para la pieza con el ID especificado.
+     */
     override fun editar() {
         val id = GestionConsola.preguntarId()
         val pieza = listadoItems[id]
         if (pieza != null) {
-            GestionConsola.imprimirTexto("Pieza elegida: ")
-            println(pieza)
+            GestionConsola.imprimirTexto("Pieza elegida con id $id:\n${GestionConsola.tituloPiezas}\n${"=".repeat(GestionConsola.tituloPiezas.length)}\n $pieza")
             val nuevaDescripcion = GestionConsola.solicitarDato("Introduce nueva descripcion: ", { it })
             pieza.descripcion = nuevaDescripcion
             GestionConsola.imprimirTexto("La descripción de la pieza con ID $id ha sido actualizada.")
@@ -328,7 +385,13 @@ class InventarioPiezas(): GestorInventario<Pieza>{
 
 
     /**
-     * Realiza un pedido de piezas. Si se le pasa la ID de la pieza, se hace de esa ID, si no se le pasa nada, se le pregunta sobre que ID quiere hacer el pedido
+     * Realiza un pedido de piezas al inventario.
+     * Si se especifica un ID de pieza, se realiza el pedido de esa pieza.
+     * Si no se especifica un ID, se solicita al usuario que ingrese el ID de la pieza.
+     * Si se especifica una cantidad, se utiliza esa cantidad para el pedido.
+     * Si no se especifica una cantidad, se solicita al usuario que ingrese la cantidad.
+     * @param id El ID de la pieza para la cual se realiza el pedido (opcional).
+     * @param cant La cantidad de piezas para el pedido (opcional).
      */
     fun realizarPedido(id: Int? = null, cant: Int? = null){
         val piezaId = id ?: run {
@@ -345,27 +408,31 @@ class InventarioPiezas(): GestorInventario<Pieza>{
         }else{
             GestionConsola.imprimirTexto("No existe la pieza con ID $piezaId")
         }
-
-
     }
 
 
+    /**
+     * Muestra la información de una pieza en el inventario basándose en su ID.
+     * Se solicita al usuario que ingrese el ID de la pieza.
+     */
     override fun mostrar() {
         val id = GestionConsola.preguntarId()
         val pieza = listadoItems[id]
         if (pieza != null) {
-            GestionConsola.imprimirTexto("Información de la pieza con ID $id: ")
-            println(pieza)
+            GestionConsola.imprimirTexto("Informacion de la pieza con ID $id:\n${GestionConsola.tituloPiezas}\n${"=".repeat(GestionConsola.tituloPiezas.length)}\n $pieza")
         } else {
             GestionConsola.imprimirTexto("No se encontró una pieza con el ID $id.")
         }
     }
 
+
+    /**
+     * Muestra la información de todas las piezas en el inventario.
+     * Se muestra el nombre de la pieza, su descripción, cantidad en stock y precio.
+     */
     override fun mostrarTodo() {
-        GestionConsola.imprimirTexto("Listado de todas las piezas:")
-        listadoItems.values.forEach { println(it) }
+        GestionConsola.imprimirTexto("Listado de todas las piezas:\n${GestionConsola.tituloPiezas}\n${"=".repeat(GestionConsola.tituloPiezas.length)}")
+        listadoItems.values.forEach { GestionConsola.imprimirTexto(it.toString()) }
     }
-
-
 }
 
