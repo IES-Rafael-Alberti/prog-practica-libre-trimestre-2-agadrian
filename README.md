@@ -62,6 +62,10 @@ La actividad consiste en el desarrollo de un proyecto software en Kotlin, permit
 
 # Preguntas para la Evaluación
 
+**Planificación:** Este software solucionara el problema de gestionar un concesionario a nivel informatico. Aporta soluciones tales como gestionar(añadir, eliminar, etc...) los vehiculos que estan en el concesionario, tanto los que se venden como los que estan para repararse. 
+A su vez, gestiona el inventario de piezas disponible y su uso (añadir piezas, hacer un pedido etc...).
+Tambien permite gestionar los arreglos que se hacen en la seccion del Taller, y entre otras cosas, crear facturas y obtener analisis de estas.
+
 Este conjunto de preguntas está diseñado para ayudarte a reflexionar sobre cómo has aplicado los criterios de evaluación en tu proyecto. Al responderlas, **asegúrate de hacer referencia y enlazar al código relevante** en tu `README.md`, facilitando así la evaluación de tu trabajo.
 
 #### **Criterio global 1: Instancia objetos y hacer uso de ellos**
